@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
-<body>
-<div id="demo" style="border:thin"><div id="demo" style="border:thin">
-    <textarea id="message" style="border:solid">
-    </textarea> 
-</div> 
-	<button onclick="myFunction()">Click me</button>
+ <body>
+   <div
+     id ="container"
+     style="height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;"
+   >
 
-<script>
-function myFunction() {
-	document.getElementById("message").innerHTML ="Hello World!";
-}
-</script>
+     <div id="border" style="border:thin">
+       <textarea id="message" style="border: solid">
+       </textarea>
+     </div>
 
-</body>
+     <button id="button" onClick="helloWorldDisplayed()">Click me</button>
+   </div>
+
+   <script>
+   function helloWorldDisplayed() {
+     document.getElementById("message").innerHTML ="Hello World!";
+   }
+   </script>
+ </body>
 </html>
