@@ -1,10 +1,10 @@
 all:
-    make env && \
+    make set && \
     make debug && \
-    flask run
+    FLASK_DEBUG=1 flask run
+
+set:
+    export FLASK_APP=simpleHelloApp.py
 
 env:
-    set FLASK_APP=simpleHelloApp.py
-
-debug:
-    FLASK_APP=simpleHelloApp.py FLASK_ENV=development flask run
+    export FLASK_ENV=development
