@@ -1,6 +1,6 @@
 all:
     make set && \
-    make debug && \
+    make env && \
     FLASK_DEBUG=1 flask run
 
 set:
