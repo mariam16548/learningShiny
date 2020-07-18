@@ -1,5 +1,5 @@
-FLASK_APP=simpleHelloApp.py
-FLASK_ENV=development
-FLASK_DEBUG=1
+export FLASK_APP=simpleHelloApp.py
+export FLASK_ENV=development
+export FLASK_DEBUG=1
 flask run
 
