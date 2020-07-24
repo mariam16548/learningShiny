@@ -39,4 +39,3 @@ shinyApp(
       data()
     })
   })
-shinyApp(ui, server)
