@@ -8,7 +8,7 @@ shinyApp(
     
     div(
       id = "form",
-      sliderInput("popDensity", "What is the population density in your county (in people/square mile)?", value=0, min=0, max=1200),
+      sliderInput("populationDensity", "What is the population density in your county (in people/square mile)?", value=0, min=0, max=1200),
       
       uiOutput("coloredBox")
     )),
@@ -21,8 +21,8 @@ shinyApp(
     }    
     
     output$coloredBox<-renderUI({
-      req(input$popDensity)
-      populationDensity <- input$popDensity;
+      req(input$populationDensity)
+      populationDensity <- input$populationDensity;
       likelihoodOfHarm <- populationDensity/500
       
       if (likelihoodOfHarm>1) {
