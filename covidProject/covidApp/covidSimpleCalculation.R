@@ -9,16 +9,7 @@ shinyApp(
     div(
       id = "form",
       sliderInput("popDensity", "What is the population density in your county (in people/square mile)?", value=0, min=0, max=1200),
-
-
-      tags$style(HTML("
-            .btn {
-              color: #2ecc71;
-              border: 2px #2ecc71 solid;
-              margin:1%;
-              display:block;
-            }
-        ")),
+      
       uiOutput("calculation")
     )),
 
