@@ -25,9 +25,6 @@ shinyApp(
 
   server = function(input, output) {
 
-      #likelihoodOfHarm<-reactive({(1/500)*input$popDensity})
-
-
       output$calculation<-renderUI({
           req(input$popDensity)
           populationDensity <- input$popDensity;
