@@ -33,18 +33,18 @@ shinyApp(
           populationDensity <- input$popDensity;
           likelihoodOfHarm <- populationDensity/500
 
-        if (likelihoodOfHarm()>1) {
+        if (likelihoodOfHarm>1) {
           sidebarPanel(style="background-color: red; width: 300px; height: 300px;", h3("Extreme risk, stay home!"))
 
-        } else if (likelihoodOfHarm()>.65){
+        } else if (likelihoodOfHarm>.65){
           sidebarPanel(style="background-color: orange; width: 300px; height: 300px;",
                        h3("Very high risk, stay home!"))
         }
-        else if (likelihoodOfHarm()>.35){
+        else if (likelihoodOfHarm>.35){
           sidebarPanel(style="background-color: yellow; width: 300px; height: 300px;",
                        h3("High risk, be careful!"))
         }
-        else if (likelihoodOfHarm()>.10){
+        else if (likelihoodOfHarm>.10){
           sidebarPanel(style="background-color: blue; width: 300px; height: 300px;",
                        h3("Moderate risk, be careful!"))
 
