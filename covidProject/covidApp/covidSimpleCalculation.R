@@ -1,6 +1,5 @@
 library(shiny)
 library(shinyWidgets)
-
 displayColoredBox<- function(color, riskMessage){
   sidebarPanel(style=sprintf("background-color: %s; width: 300px; height: 300px;", color),
                h3(sprintf("%s", riskMessage)) )  }
@@ -11,8 +10,8 @@ shinyApp(
     
     div(
       id = "form",
-      sliderInput("populationDensity", "What is the population density in your county (in people/square mile)?", value=0, min=0, max=1200),
-      
+      sliderInput("populationDensity", "What is the population density in your county (in people/square mile)?", value=0, min=0, max=5000),
+      sliderInput("caseCount", "What is the approximate number of cases per 100,000 people in your county?", value=0, min=0, max=5000),
       uiOutput("coloredBox")
     )),
   
@@ -20,8 +19,12 @@ shinyApp(
     
     output$coloredBox<-renderUI({
       req(input$populationDensity)
+      req(input$caseCount)
+      
       populationDensity <- input$populationDensity;
-      likelihoodOfHarm <- populationDensity/500
+      caseCount <- input$caseCount;
+      
+      likelihoodOfHarm <- (populationDensity*caseCount)/5000000
       
       
       if (likelihoodOfHarm>1) {
@@ -49,3 +52,4 @@ shinyApp(
     })
   }
 )
+#reference used: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
