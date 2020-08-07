@@ -1,3 +1,6 @@
+library(shiny)
+library(shinyWidgets)
+
 displayColoredBox<- function(color, riskMessage){
   sidebarPanel(style=sprintf("background-color: %s; width: 300px; height: 300px;", color),
                h3(sprintf("%s", riskMessage)) )  }
