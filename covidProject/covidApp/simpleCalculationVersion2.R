@@ -1,6 +1,6 @@
-library(shiny)
-library(shinyWidgets)
-
+displayColoredBox<- function(color, riskMessage){
+  sidebarPanel(style=sprintf("background-color: %s; width: 300px; height: 300px;", color),
+               h3(sprintf("%s", riskMessage)) )  }
 shinyApp(
   ui = fluidPage(
     
@@ -15,33 +15,33 @@ shinyApp(
   
   server = function(input, output) {
     
-    displayColoredBox<- function(color, riskMessage){
-      sidebarPanel(style=sprintf("background-color: %s; width: 300px; height: 300px;",
-                   h3("%s"), color, riskMessage))
-    }    
-    
     output$coloredBox<-renderUI({
       req(input$populationDensity)
       populationDensity <- input$populationDensity;
       likelihoodOfHarm <- populationDensity/500
       
+      
       if (likelihoodOfHarm>1) {
-        displayColoredBox("red", "Extreme risk, stay home!")
-        
+        color="red"
+        riskMessage="Extreme risk, stay home!"
+
       } else if (likelihoodOfHarm>.65){
-        displayColoredBox("orange", "Very high risk, stay home!")
-        
+        color="orange"
+        riskMessage="Very high risk, stay home!"
       }
       else if (likelihoodOfHarm>.35){
-        displayColoredBox("yellow", "High risk, be careful!")
-        
+        color="yellow"
+        riskMessage="High risk, be careful!"
       }
       else if (likelihoodOfHarm>.10){
-        displayColoredBox("blue", "Moderate risk, be careful!")
-        
+        color="blue"
+        riskMessage="Moderate risk, be careful!"
       } else {
-        displayColoredBox("green", "Low risk, but still be careful!")
+        color="green"
+        riskMessage="Low risk, but still be careful!"
       }
+      
+      displayColoredBox(color, riskMessage)
       
     })
   }
