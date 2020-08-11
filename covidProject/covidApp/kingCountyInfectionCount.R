@@ -6,4 +6,4 @@ data=content(GET(url), type = 'text/csv')
 data1<-subset(data, Type!="Deaths") #only has cases stats not death stats
 data2 %>% map_df(rev) #flip row order so that stats start from earliest date and ends with latest date
 
-barplot(data3$"7_day_count", main="Weekly COVID-19 Case Count in King County",xlab="Weeks since 1/29/20", ylab="Weekly Infection Count")
+barplot(data2$"7_day_count", main="Weekly COVID-19 Case Count in King County",xlab="Weeks since 1/29/20", ylab="Weekly Infection Count")
