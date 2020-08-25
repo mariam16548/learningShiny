@@ -57,7 +57,7 @@ testServer(app, {
   session$setInputs(count1 = 1500)
   session$setInputs(count2 = 2500)
   checkEquals(output$coloredBox$likelihood, 0.75)
-  checkEquals(output$coloredBox$riskMessage, "Very high risk!")
+  checkEquals(output$coloredBox$riskMessage, "Very high risk, stay home!")
   checkEquals(output$coloredBox$color,"orange")
 })
 
