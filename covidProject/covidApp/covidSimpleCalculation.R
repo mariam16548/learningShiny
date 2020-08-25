@@ -2,7 +2,7 @@ library(shiny)
 displayColoredBox<- function(color, riskMessage){
   sidebarPanel(style=sprintf("background-color: %s; width: 300px; height: 300px;", color),
                h3(sprintf("%s", riskMessage)) )  }
-shinyApp(
+app <-shinyApp(
   ui = fluidPage(
     
     titlePanel("Will your actions today propagate the virus to the community?"),
