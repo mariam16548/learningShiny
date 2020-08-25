@@ -14,7 +14,7 @@ shinyApp(
       uiOutput("coloredBox")
     )),
   
-  server = function(input, output) {
+  server = function(input, output, session) {
     
     output$coloredBox<-renderUI({
       req(input$populationDensity)
@@ -46,9 +46,19 @@ shinyApp(
         riskMessage="Low risk, but still be careful!"
       }
       
-      displayColoredBox(color, riskMessage)
+      coloredBox=displayColoredBox(color, riskMessage)
+      return(coloredBox)      
       
     })
   }
 )
+
+testServer(app, {
+  session$setInputs(count1 = 1500)
+  session$setInputs(count2 = 2500)
+  checkEquals(output$coloredBox$likelihood, 0.75)
+  checkEquals(output$coloredBox$riskMessage, "Very high risk!")
+  checkEquals(output$coloredBox$color,"orange")
+})
+
 #reference used: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
