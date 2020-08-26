@@ -56,8 +56,8 @@ app <-shinyApp(
 )
 
 testServer(app, {
-  session$setInputs(count1 = 1500)
-  session$setInputs(count2 = 2500)
+  session$setInputs(populationDensity = 1500)
+  session$setInputs(caseCount = 2500)
   checkEqualsNumeric(output$coloredBox$likelihoodOfHarm, 0.75)
   checkEquals(output$coloredBox$riskMessage, "Very high risk, stay home!")
   checkEquals(output$coloredBox$color,"orange")
