@@ -1,4 +1,6 @@
 library(shiny)
+library(RUnit)
+
 displayColoredBox<- function(color, riskMessage){
   sidebarPanel(style=sprintf("background-color: %s; width: 300px; height: 300px;", color),
                h3(sprintf("%s", riskMessage)) )  }
@@ -58,10 +60,10 @@ testServer(app, {
   session$setInputs(populationDensity = 1500)
   session$setInputs(caseCount = 2500)
   riskAndColor<-getRiskAndColor()
-  stopifnot(riskAndColor$likelihoodOfHarm == 0.75)
+  checkEquals(riskAndColor$likelihoodOfHarm, 0.75)
   cat("Correct likelihood of harm value!\n")
-  stopifnot(riskAndColor$riskMessage == "Very high risk, stay home!")
+  checkEquals(riskAndColor$riskMessage, "Very high risk, stay home!")
   cat("Correct risk message!\n")
-  stopifnot(riskAndColor$color == "orange")
+  checkEquals(riskAndColor$color, "orange")
   cat("Correct color!\n")
 })
