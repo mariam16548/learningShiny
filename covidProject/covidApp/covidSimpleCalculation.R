@@ -55,12 +55,4 @@ app <-shinyApp(
   }
 )
 
-testServer(app, {
-  session$setInputs(populationDensity = 1500)
-  session$setInputs(caseCount = 2500)
-  checkEqualsNumeric(output$coloredBox$likelihoodOfHarm, 0.75)
-  checkEquals(output$coloredBox$riskMessage, "Very high risk, stay home!")
-  checkEquals(output$coloredBox$color,"orange")
-})
-
 #reference used: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
