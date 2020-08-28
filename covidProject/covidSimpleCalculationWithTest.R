@@ -16,7 +16,7 @@ app <- shinyApp(
     )),
   
   server <- function(input, output, session) {
-    getRiskAndColor<-reactive({
+    getRiskAndColor<-reactive({ 
       req(input$"populationDensity")
       req(input$"caseCount")
       
@@ -45,25 +45,28 @@ app <- shinyApp(
         color<-"green"
         riskMessage<-"Low risk, but still be careful!"
       }
-      list(color=color, riskMessage=riskMessage, likelihoodOfHarm=likelihoodOfHarm)
+      list(color=color, riskMessage=riskMessage, likelihoodOfHarm=likelihoodOfHarm) 
+ # making these variables the result from the getRiskAndColor() function as global variables, not local ones
+      
+      
     })
     
     output$coloredBox<-renderUI({
-      riskAndColor<-getRiskAndColor()
-      displayColoredBox(riskAndColor$color, riskAndColor$riskMessage)
-      
+      riskAndColor<-getRiskAndColor() #the list/result of the function goes into a variable called riskAndColor
+      displayColoredBox(riskAndColor$color, riskAndColor$riskMessage) #extract certain elements from the list to plug into the displayColoredBox() function
+      #the output will be the output of the displayColorBox() function
     })
   }
 )
 
 testServer(app, {
-  session$setInputs(populationDensity = 1500)
-  session$setInputs(caseCount = 2500)
-  riskAndColor<-getRiskAndColor()
-  checkEquals(riskAndColor$likelihoodOfHarm, 0.75)
-  cat("Correct likelihood of harm value!\n")
-  checkEquals(riskAndColor$riskMessage, "Very high risk, stay home!")
-  cat("Correct risk message!\n")
-  checkEquals(riskAndColor$color, "orange")
-  cat("Correct color!\n")
+  session$setInputs(populationDensity = 1500) #set the population density as 1500
+  session$setInputs(caseCount = 2500) #set the case count as 2500
+  riskAndColor<-getRiskAndColor() #the list/result of the function goes into a variable called riskAndColor
+  checkEquals(riskAndColor$likelihoodOfHarm, 0.75)  #extract certain element from the list to check its value
+  cat("Correct likelihood of harm value!\n") #if previous line is true, paste the given message 
+  checkEquals(riskAndColor$riskMessage, "Very high risk, stay home!") #extract certain element from the list to check its value
+  cat("Correct risk message!\n") #if previous line is true, paste the given message 
+  checkEquals(riskAndColor$color, "orange") #extract certain element from the list to check its value
+  cat("Correct color!\n") #if previous line is true, paste the given message 
 })
