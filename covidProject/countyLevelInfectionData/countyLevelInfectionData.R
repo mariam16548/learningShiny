@@ -1,5 +1,5 @@
-library(httr)   
-countyLevelInfectionData<- function(zip, startDate=NA, endDate=NA) { #dates must be written in "XX/XX/XXXX" format (make sure written as a STRING)
+source("zipcodeToCounty.R")
+countyLevelInfectionData<- function(zip, startDate=NA, endDate=NA) { #dates must be written in "XX/XX/XXXX" format
   countyStateNames <- zipcodeToCounty(zip)
   countyName <- countyStateNames[1]
   stateName <- countyStateNames[2]
