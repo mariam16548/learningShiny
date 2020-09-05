@@ -1,5 +1,5 @@
-library(httr) 
-countyLevelInfectionData<- function(zip) {
+library(httr)   
+countyLevelInfectionData<- function(zip, startDate=NA, endDate=NA) { #dates must be written in "XX/XX/XXXX" format (make sure written as a STRING)
   countyStateNames <- zipcodeToCounty(zip)
   countyName <- countyStateNames[1]
   stateName <- countyStateNames[2]
@@ -16,5 +16,25 @@ countyLevelInfectionData<- function(zip) {
   tbl.countyCases <- subset(tbl.countyCases, select = c('7_day','7_day_count')) #only has date and case stats
   names(tbl.countyCases)[1] <- "weekDate"
   names(tbl.countyCases)[2] <- "caseCount"
-  print(data.frame(tbl.countyCases), row.names = FALSE)
+  if (is.na(startDate)) {  #check if the startDate or endDates are NA-- defaults to giving earliest/latest data, respectively 
+    startDate=tbl.countyCases$weekDate[1]
+  } else {
+    startDate=startDate
+  }
+  
+  if (is.na(endDate)) {
+    endDate=tail(tbl.countyCases$weekDate,1)
+  } else {
+    endDate=endDate
+  }
+  
+  startDateRowNumber <- which(grepl(startDate, tbl.countyCases$weekDate)) #find row number of the startDate
+  endDateRowNumber <- which(grepl(endDate, tbl.countyCases$weekDate)) #find row number of the endDate
+  if (length(startDateRowNumber)==0 || length(endDateRowNumber)==0) {
+    print("The dates you selected are not within the available range, please select a start date that is 01/22/2020 or later.")
+  }  else {
+    startDateRowNumber=startDateRowNumber
+    tbl.countyCases <- tbl.countyCases[startDateRowNumber:endDateRowNumber,,drop=F]
+    print(data.frame(tbl.countyCases), row.names = FALSE)
+  }
 }
