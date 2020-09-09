@@ -88,13 +88,13 @@ app <- shinyApp(
 )
 
 testServer(app, {
-  session$setInputs(populationDensity = 1500) #set the population density as 1500
-  session$setInputs(caseCount = 2500) #set the case count as 2500
+  session$setInputs(populationDensity = 3800) #set the population density as 3800
+  session$setInputs(zipcode = 66101) #set the zipcode as 66101
   riskAndColor<-getRiskAndColor() #the list/result of the function goes into a variable called riskAndColor
-  checkEquals(riskAndColor$likelihoodOfHarm, 0.75)  #extract certain element from the list to check its value
+  checkEquals(riskAndColor$likelihoodOfHarm, 1.16052)  #extract certain element from the list to check its value
   cat("Correct likelihood of harm value!\n") #if previous line is true, paste the given message 
-  checkEquals(riskAndColor$riskMessage, "Very high risk, stay home!") #extract certain element from the list to check its value
+  checkEquals(riskAndColor$riskMessage, "Extreme risk, stay home!") #extract certain element from the list to check its value
   cat("Correct risk message!\n") #if previous line is true, paste the given message 
-  checkEquals(riskAndColor$color, "orange") #extract certain element from the list to check its value
+  checkEquals(riskAndColor$color, "red") #extract certain element from the list to check its value
   cat("Correct color!\n") #if previous line is true, paste the given message 
 })
