@@ -15,7 +15,6 @@ app <- shinyApp(
                   sidebarPanel("",
                                numericInput("zipcode", "Please enter your zipcode.", value = 66101, min= NA, max=NA), 
                                sliderInput("populationDensity", "What is the population density in your county (in people/square mile)?", value=0, min=0, max=5000),
-                               sliderInput("caseCount", "What is the approximate number of cases per 100,000 people in your county?", value=0, min=0, max=5000)
                   ),
                   
                   mainPanel("",
@@ -26,15 +25,27 @@ app <- shinyApp(
     )),
   
   server <- function(input, output, session) {
+    getInfectionData <- reactive({
+      req(input$"zipcode")
+      
+      zipcode <- input$zipcode
+      
+      infectionData <- data.frame(countyLevelInfectionData(zipcode))
+      infectionData
+    })
+    
     getRiskAndColor<-reactive({ 
       req(input$"populationDensity")
-      req(input$"caseCount")
-      
+      req(input$"zipcode")
       
       populationDensity <- input$populationDensity
-      caseCount <- input$caseCount
+      zipcode <- input$zipcode
       
-      likelihoodOfHarm <- (populationDensity*caseCount)/5000000
+      infectionData <- data.frame(countyLevelInfectionData(zipcode))
+      
+      mostRecentCaseCount<- tail(infectionData$caseCount,1)
+      likelihoodOfHarm <- (populationDensity*mostRecentCaseCount)/20000000
+      
       
       if (likelihoodOfHarm>1) {
         color<-"red"
@@ -60,15 +71,6 @@ app <- shinyApp(
       
     })
     
-    
-    getInfectionData <- reactive({
-      req(input$"zipcode")
-      zipcode <- input$zipcode
-      infectionData <- data.frame(countyLevelInfectionData(zipcode))
-      infectionData
-    })
-    
-    
     output$coloredBox<-renderUI({
       riskAndColor<-getRiskAndColor() #the list/result of the function goes into a variable called riskAndColor
       displayColoredBox(riskAndColor$color, riskAndColor$riskMessage) #extract certain elements from the list to plug into the displayColoredBox() function
@@ -77,11 +79,10 @@ app <- shinyApp(
     })
     
     output$histogramOfCases <- renderPlot({
-      infectionData<-getInfectionData()
+      infectionData<-getInfectionData() 
       plot(1:nrow(infectionData), infectionData$caseCount, main="COVID-19 Case Count in Your Area", 
            xlab="Days since 01/22/2020", ylab="Infection Count", cex.main=1.5, cex.lab=1.3, cex.axis=1.2, col="red", "h")
     })
-    
     
   }
 )
