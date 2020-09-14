@@ -30,7 +30,6 @@ app <- shinyApp(
   server <- function(input, output, session) {
     
     observeEvent(input$zipcode,{     #limits zipcode input to 5 numbers only
-      cat(suppressWarnings(is.na(as.numeric(input$zipcode))),'\n')
       if(nchar(input$zipcode)!=5)
       {
         updateTextInput(session,'zipcode',value=66101)
@@ -85,8 +84,8 @@ app <- shinyApp(
         likelihoodOfHarm<- likelihoodOfHarm*.35
       }  else {
         likelihoodOfHarm <- likelihoodOfHarm
-        }
-
+      }
+      
       if (age<30){
         likelihoodOfHarm <- likelihoodOfHarm*1.31     #increased risk because more likely to exhibit risky behavior
       }  else {
@@ -96,7 +95,7 @@ app <- shinyApp(
       if (groupSize>10){
         likelihoodOfHarm <- likelihoodOfHarm*1.3 #increased risk because people around in close proximity
       } else if (groupSize>25){
-         likelihoodOfHarm <- likelihoodOfHarm*1.6 #increased risk because more people around in close proximity
+        likelihoodOfHarm <- likelihoodOfHarm*1.6 #increased risk because more people around in close proximity
       } else if (groupSize>50){
         likelihoodOfHarm <- likelihoodOfHarm*1.9 #increased risk because more people around in close proximity
       }  else {
@@ -111,7 +110,7 @@ app <- shinyApp(
       
       
       
-  #designing the coloredBox
+      #designing the coloredBox
       if (likelihoodOfHarm>1) {
         color<-"red"
         riskMessage<-"Extreme risk, stay home!"
@@ -161,9 +160,9 @@ testServer(app, {
   riskAndColor<-getRiskAndColor() #the list/result of the function goes into a variable called riskAndColor
   checkTrue(riskAndColor$likelihoodOfHarm< 0.65)  #extract certain element from the list to check its value
   cat("Correct likelihood of harm value!\n") #if previous line is true, paste the given message 
-  checkEquals(riskAndColor$riskMessage, "Moderate risk, be careful!") #extract certain element from the list to check its value
+  checkEquals(riskAndColor$riskMessage, "Low risk, but still be careful!") #extract certain element from the list to check its value
   cat("Correct risk message!\n") #if previous line is true, paste the given message 
-  checkEquals(riskAndColor$color, "#4d94ff") #extract certain element from the list to check its value
+  checkEquals(riskAndColor$color, "#bfff80") #extract certain element from the list to check its value
   cat("Correct color!\n") #if previous line is true, paste the given message 
 })
 
@@ -176,8 +175,8 @@ testServer(app, {
 #source for younger people more likely to exhibit risky behavior: 
 #https://komonews.com/news/coronavirus/troubling-trend-shows-more-young-people-testing-positive-for-covid-19
 #https://www.usatoday.com/story/news/politics/2020/06/26/coronavirus-young-americans-less-likely-social-distance/3257513001/
- #45% of people under 30 are socializing with people they do not live with and not social distancing
- #around 40% of COVID cases are from people under 30
-  #therefore, around 16% of young people (likely asymptomatic) are engaging in risky behavior
+#45% of people under 30 are socializing with people they do not live with and not social distancing
+#around 40% of COVID cases are from people under 30
+#therefore, around 16% of young people (likely asymptomatic) are engaging in risky behavior
 #82% risk reduction when social distancing (https://newsroom.unsw.edu.au/news/health/covid-19-how-much-do-social-distancing-and-masks-reduce-risk)
 #1-(.82*(1-.16))=.31-> 31% risk increase
