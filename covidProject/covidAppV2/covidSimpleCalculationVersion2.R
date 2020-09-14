@@ -13,13 +13,13 @@ app <- shinyApp(
     
     sidebarLayout(position = "left",
                   sidebarPanel("",
-                               textInput("zipcode", label="Enter your zipcode.", value = 66101), 
+                               textInput("zipcode", label="Enter your zipcode.", value = 98125), 
                                numericInput("age", label="Enter your age.", value = ""),
                                numericInput("groupSize", label="How many people will be with you?", value = ""),
-                               selectInput("masking", "Will you wear a mask?",
-                                           c("","Yes", "No")),
-                               selectInput("alcoholConsumption", "Will you be under the influence of alcohol outside of your home?",
-                                           c("","Yes", "No"))),
+                               radioButtons("masking", "Will you wear a mask?",
+                                           c("Yes", "No")),
+                               radioButtons("alcoholConsumption", "Will you be under the influence of alcohol outside of your home?",
+                                           c("Yes", "No"))),
                   
                   mainPanel("",
                             fluidRow(
@@ -84,8 +84,8 @@ app <- shinyApp(
         likelihoodOfHarm<- likelihoodOfHarm*.35
       }  else {
         likelihoodOfHarm <- likelihoodOfHarm
-      }
-      
+        }
+
       if (age<30){
         likelihoodOfHarm <- likelihoodOfHarm*1.31     #increased risk because more likely to exhibit risky behavior
       }  else {
@@ -95,7 +95,7 @@ app <- shinyApp(
       if (groupSize>10){
         likelihoodOfHarm <- likelihoodOfHarm*1.3 #increased risk because people around in close proximity
       } else if (groupSize>25){
-        likelihoodOfHarm <- likelihoodOfHarm*1.6 #increased risk because more people around in close proximity
+         likelihoodOfHarm <- likelihoodOfHarm*1.6 #increased risk because more people around in close proximity
       } else if (groupSize>50){
         likelihoodOfHarm <- likelihoodOfHarm*1.9 #increased risk because more people around in close proximity
       }  else {
@@ -110,7 +110,7 @@ app <- shinyApp(
       
       
       
-      #designing the coloredBox
+  #designing the coloredBox
       if (likelihoodOfHarm>1) {
         color<-"red"
         riskMessage<-"Extreme risk, stay home!"
@@ -151,7 +151,7 @@ app <- shinyApp(
 )
 
 testServer(app, {
-  session$setInputs(zipcode = 66101) #set the zipcode as 66101
+  session$setInputs(zipcode = 98125) #set the zipcode as 66101
   session$setInputs(age = 20) #set the age as 20
   session$setInputs(masking = "Yes") #set input as wearing a mask
   session$setInputs(groupSize = 1) #set the group size as 1 
@@ -165,7 +165,6 @@ testServer(app, {
   checkEquals(riskAndColor$color, "#bfff80") #extract certain element from the list to check its value
   cat("Correct color!\n") #if previous line is true, paste the given message 
 })
-
 #source for mask lowering risk calculation: 
 #https://www.ucdavis.edu/coronavirus/news/your-mask-cuts-own-risk-65-percent/
 
