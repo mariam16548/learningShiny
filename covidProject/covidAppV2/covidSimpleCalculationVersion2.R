@@ -9,7 +9,7 @@ displayColoredBox<- function(color, riskMessage){
 }
 app <- shinyApp(
   ui <- fluidPage(
-    titlePanel("Will your actions today propagate the virus to the community?"),
+    titlePanel("Will your actions today likely propagate COVID-19 to your community?"),
     
     sidebarLayout(position = "left",
                   sidebarPanel("",
