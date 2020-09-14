@@ -173,10 +173,10 @@ testServer(app, {
 #https://one.nhtsa.gov/people/injury/research/pub/HS809028/index_.htm
 
 #source for younger people more likely to exhibit risky behavior: 
-#https://komonews.com/news/coronavirus/troubling-trend-shows-more-young-people-testing-positive-for-covid-19
-#https://www.usatoday.com/story/news/politics/2020/06/26/coronavirus-young-americans-less-likely-social-distance/3257513001/
-#45% of people under 30 are socializing with people they do not live with and not social distancing
-#around 40% of COVID cases are from people under 30
-#therefore, around 16% of young people (likely asymptomatic) are engaging in risky behavior
-#82% risk reduction when social distancing (https://newsroom.unsw.edu.au/news/health/covid-19-how-much-do-social-distancing-and-masks-reduce-risk)
-#1-(.82*(1-.16))=.31-> 31% risk increase
+  #https://komonews.com/news/coronavirus/troubling-trend-shows-more-young-people-testing-positive-for-covid-19
+  #https://www.usatoday.com/story/news/politics/2020/06/26/coronavirus-young-americans-less-likely-social-distance/3257513001/
+    # 45% of people under 30 are socializing with people they do not live with and not social distancing
+    # Around 40% of COVID cases are from people under 30
+      # Therefore, around 16% of young people (likely asymptomatic) are engaging in risky behavior (.40*.45)
+    # 82% risk reduction when social distancing (https://newsroom.unsw.edu.au/news/health/covid-19-how-much-do-social-distancing-and-masks-reduce-risk)
+    #Calculation of risk increase: 1-(.82*(1-.16))=.31 -> 31% risk increase for people under age of 30 to spread the infection
