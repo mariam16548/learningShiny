@@ -44,7 +44,6 @@ countyLevelInfectionData<- function(zip, startDate=NA, endDate=NA) { #dates must
       tbl.countyCases$countyPopulationDensity<- countyPopulationDensity(countyName, stateName) #create a new column with pop density
       tbl.countyCases$countyPopulation<- countyPopulation(countyName, stateName)
       print(data.frame(tbl.countyCases), row.names = FALSE)
-      
     }
   }
 }
